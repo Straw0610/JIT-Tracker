@@ -3,273 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JIT Tracking Dashboard</title>
+    <title>JIT Tracker Dashboard</title>
     <style>
-        :root {
-            --bg-color: #121212;
-            --surface-color: #1e1e1e;
-            --text-primary: #e0e0e0;
-            --text-secondary: #aaaaaa;
-            --border-color: #333333;
-            --accent-yellow: #fdd835;
-            --accent-green: #43a047;
-            --accent-blue: #1e88e5;
-            --accent-red: #e53935;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
             padding: 20px;
+            margin: 0;
         }
-
-        h1, h2, h3 {
-            color: #ffffff;
-            margin-bottom: 10px;
-        }
-
-        .dashboard-container {
+        .container {
             max-width: 1200px;
             margin: 0 auto;
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
-
-        .header-panel {
-            display: flex;
-            gap: 20px;
+        h2, h3 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        .top-routes {
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 6px;
             margin-bottom: 20px;
         }
-
-        .card {
-            background-color: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-            flex: 1;
-        }
-
-        .card ul {
+        .top-routes ul, .legend ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-
-        .card li {
-            margin-bottom: 8px;
+        .top-routes li, .legend li {
+            margin-bottom: 5px;
         }
-
-        .timestamp {
-            color: var(--text-secondary);
-            font-size: 0.85em;
+        .legend {
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: var(--surface-color);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            margin-top: 10px;
         }
-
         th, td {
-            padding: 12px 15px;
+            padding: 12px;
             text-align: left;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #333;
         }
-
         th {
-            background-color: #2c2c2c;
-            color: #ffffff;
+            background-color: #333;
+            color: #fff;
             font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.9em;
         }
-
-        tr:last-child td {
-            border-bottom: none;
+        tr:hover {
+            background-color: #2a2a2a;
         }
-
-        tr:nth-child(even) {
-            background-color: #1a1a1a;
-        }
-
-        .shuttle-header td {
+        .group-header {
             font-weight: bold;
-            color: #ffffff;
             background-color: #252525;
-        }
-
-        .nested {
-            padding-left: 20px;
-            color: var(--text-secondary);
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.85em;
-            font-weight: 600;
-            margin-right: 5px;
-            margin-bottom: 5px;
-        }
-
-        .badge-clear {
-            background-color: rgba(67, 160, 71, 0.2);
-            color: #81c784;
-            border: 1px solid #43a047;
-        }
-
-        .badge-restriction {
-            background-color: rgba(229, 57, 53, 0.2);
-            color: #e57373;
-            border: 1px solid #e53935;
-        }
-
-        .route-alert {
-            font-size: 1.1em;
-            vertical-align: middle;
+            color: #4da6ff;
         }
     </style>
 </head>
 <body>
-    <div class="dashboard-container">
-        <h1>JIT Tracking Dashboard</h1>
-        
-        <div class="header-panel">
-            <div class="card">
-                <h3>🏆 Top Routes by Desk</h3>
-                <ul>
-                    <li>🟡 <strong>Dry:</strong> 2327 <span class="timestamp">(Last Updated: 2026-07-13 22:30 PDT)</span></li>
-                    <li>🟢 <strong>Chill:</strong> 2324 <span class="timestamp">(Last Updated: 2026-07-13 23:16 PDT)</span></li>
-                    <li>🔵 <strong>Freezer:</strong> 2053 <span class="timestamp">(Last Updated: 2026-07-13 23:16 PDT)</span></li>
-                </ul>
-            </div>
-            
-            <div class="card">
-                <h3>📋 Active JIT Slots Legend</h3>
-                <ul>
-                    <li>🟡 <strong>Dry:</strong> 53-JIT, 27-JIT, 14-JIT</li>
-                    <li>🟢 <strong>Chill:</strong> 80-JIT, MTS-JIT, 82-JIT, 86-600</li>
-                    <li>🔵 <strong>Freezer:</strong> 59-JIT</li>
-                </ul>
-            </div>
-        </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Shuttle / Group</th>
-                    <th>Route</th>
-                    <th>Time</th>
-                    <th>Driver</th>
-                    <th>Status</th>
-                    <th>Active Restrictions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="shuttle-header"><td><strong>SHUTTLE: JAMES</strong></td><td>-</td><td>22:00</td><td>JAMES</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr class="shuttle-header"><td><strong>SHUTTLE: MEA</strong></td><td>-</td><td>21:00</td><td>MEA</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2070</td><td>4:00</td><td>KOPP</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2071</td><td>3:00</td><td>GUPTILL</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                
-                <tr class="shuttle-header"><td><strong>LOCAL</strong></td><td>-</td><td>-</td><td>-</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2316</td><td>0:00</td><td>JOHANNECK</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2191</td><td>0:00</td><td>RAMOS(A)</td><td></td><td><span class="badge badge-restriction">🛑 53-JIT</span></td></tr>
-                <tr><td class="nested">↳</td><td>2321</td><td>0:00</td><td>LONTOC</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                
-                <tr class="shuttle-header"><td><strong>SHUTTLE: AREVALO</strong></td><td>-</td><td>17:00</td><td>AREVALO</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2040</td><td>4:00</td><td>GUTIERREZ</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2039</td><td>4:00</td><td>KINCANNON</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                
-                <tr class="shuttle-header"><td><strong>SHUTTLE: RIXIE</strong></td><td>-</td><td>22:00</td><td>RIXIE</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                
-                <tr class="shuttle-header"><td><strong>SHUTTLE: LEMON</strong></td><td>-</td><td>21:00</td><td>LEMON</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2072</td><td>4:00</td><td>HEIZER</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2073</td><td>4:00</td><td>BAXTER</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                
-                <tr class="shuttle-header"><td><strong>SHUTTLE: AGUAYO D(A)</strong></td><td>-</td><td>19:00</td><td>AGUAYO D(A)</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2065</td><td>4:00</td><td>FRASQUILLO</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2063</td><td>4:00</td><td>TEED</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                
-                <tr class="shuttle-header"><td><strong>SHUTTLE: MARSDEN J</strong></td><td>-</td><td>19:00</td><td>MARSDEN J</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2030</td><td>4:00</td><td>COMEAU</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2027</td><td>3:00</td><td>HANSON</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                
-                <tr class="shuttle-header"><td><strong>SHUTTLE: FURGERI</strong></td><td>-</td><td>19:00</td><td>FURGERI</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2020</td><td>2:00</td><td>WEBB</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2026</td><td>3:00</td><td>FLETCHER</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                
-                <tr class="shuttle-header"><td><strong>SHUTTLE: DAWSON</strong></td><td>-</td><td>17:00</td><td>DAWSON</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2041</td><td>4:00</td><td>SMITH M</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2042</td><td>4:00</td><td>MURO</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                
-                <tr class="shuttle-header"><td><strong>SHUTTLE: BUENO</strong></td><td>-</td><td>17:00</td><td>BUENO</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2043</td><td>4:00</td><td>RESTREPO</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                
-                <tr class="shuttle-header"><td><strong>SHUTTLE: HOLMES</strong></td><td>-</td><td>21:00</td><td>HOLMES</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2051</td><td>4:00</td><td>FENNELLY</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2054</td><td>4:00</td><td>BAKER</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                
-                <tr class="shuttle-header"><td><strong>SHUTTLE: HESSELTINE</strong></td><td>-</td><td>19:00</td><td>HESSELTINE</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2060</td><td>4:00</td><td>TWEDT</td><td></td><td><span class="badge badge-restriction">🛑 53-JIT</span></td></tr>
-                <tr><td class="nested">↳</td><td>2062</td><td>4:00</td><td>SLAGLE</td><td></td><td><span class="badge badge-restriction">🛑 53-JIT</span></td></tr>
-                
-                <tr class="shuttle-header"><td><strong>LOCAL</strong></td><td>-</td><td>-</td><td>-</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2323</td><td>0:00</td><td>KISKISAN</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2319</td><td>0:00</td><td>COOK</td><td></td><td><span class="badge badge-restriction">🛑 53-JIT</span> <span class="badge badge-restriction">🛑 86-600</span></td></tr>
-                <tr><td class="nested">↳</td><td>2327 <span class="route-alert">🟡🚨</span></td><td>0:00</td><td>CASIMIRO</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2325</td><td>0:00</td><td>MCGRAW</td><td></td><td><span class="badge badge-restriction">🛑 53-JIT</span> <span class="badge badge-restriction">🛑 82-JIT</span></td></tr>
-                <tr><td class="nested">↳</td><td>2324 <span class="route-alert">🟢🚨</span></td><td>0:00</td><td>MILLARES</td><td></td><td><span class="badge badge-restriction">🛑 MTS-JIT</span> <span class="badge badge-restriction">🛑 86-600</span></td></tr>
-                <tr><td class="nested">↳</td><td>2328</td><td>0:00</td><td>ROHRS</td><td></td><td><span class="badge badge-restriction">🛑 53-JIT</span></td></tr>
-                
-                <tr class="shuttle-header"><td><strong>SHUTTLE: AGUAYO D(A)</strong></td><td>-</td><td>TBA</td><td>AGUAYO D(A)</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2064</td><td>4:00</td><td>HENRY</td><td></td><td><span class="badge badge-restriction">🛑 MTS-JIT</span> <span class="badge badge-restriction">🛑 86-600</span></td></tr>
-                
-                <tr class="shuttle-header"><td><strong>SHUTTLE: HARLOFF</strong></td><td>-</td><td>18:00</td><td>HARLOFF</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2010</td><td>3:00</td><td>PANIAGUA</td><td></td><td><span class="badge badge-restriction">🛑 53-JIT</span> <span class="badge badge-restriction">🛑 86-600</span></td></tr>
-                <tr><td class="nested">↳</td><td>2011</td><td>3:00</td><td>MIMAKI</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                
-                <tr class="shuttle-header"><td><strong>SHUTTLE: FURGERI</strong></td><td>-</td><td>TBA</td><td>FURGERI</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2052</td><td>6:00</td><td>HADLOCK</td><td></td><td><span class="badge badge-restriction">🛑 53-JIT</span> <span class="badge badge-restriction">🛑 MTS-JIT</span></td></tr>
-                <tr><td class="nested">↳</td><td>2053 <span class="route-alert">🔵🚨</span></td><td>6:00</td><td>HERRING</td><td></td><td><span class="badge badge-restriction">🛑 53-JIT</span> <span class="badge badge-restriction">🛑 MTS-JIT</span> <span class="badge badge-restriction">🛑 86-600</span> <span class="badge badge-restriction">🛑 59-JIT</span></td></tr>
-                
-                <tr class="shuttle-header"><td><strong>LOCAL</strong></td><td>-</td><td>-</td><td>-</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2151</td><td>2:00</td><td>ROSE</td><td></td><td><span class="badge badge-restriction">🛑 59-JIT</span></td></tr>
-                <tr><td class="nested">↳</td><td>2301</td><td>3:00</td><td>DORRIS</td><td></td><td><span class="badge badge-restriction">🛑 59-JIT</span></td></tr>
-                <tr><td class="nested">↳</td><td>2025</td><td>3:00</td><td>RIVERA, J</td><td></td><td><span class="badge badge-restriction">🛑 53-JIT</span> <span class="badge badge-restriction">🛑 82-JIT</span> <span class="badge badge-restriction">🛑 86-600</span> <span class="badge badge-restriction">🛑 59-JIT</span></td></tr>
-                <tr><td class="nested">↳</td><td>2021</td><td>3:00</td><td>LANE</td><td></td><td><span class="badge badge-restriction">🛑 53-JIT</span> <span class="badge badge-restriction">🛑 86-600</span> <span class="badge badge-restriction">🛑 59-JIT</span></td></tr>
-                <tr><td class="nested">↳</td><td>2330</td><td>3:00</td><td>FREDERICKS</td><td></td><td><span class="badge badge-restriction">🛑 MTS-JIT</span> <span class="badge badge-restriction">🛑 86-600</span></td></tr>
-                <tr><td class="nested">↳</td><td>2198</td><td>3:00</td><td>PHAN</td><td></td><td><span class="badge badge-restriction">🛑 53-JIT</span> <span class="badge badge-restriction">🛑 MTS-JIT</span> <span class="badge badge-restriction">🛑 59-JIT</span></td></tr>
-                <tr><td class="nested">↳</td><td>2308</td><td>4:00</td><td>TIERNEY</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2091</td><td>4:00</td><td>FERNANDEZ</td><td></td><td><span class="badge badge-restriction">🛑 53-JIT</span> <span class="badge badge-restriction">🛑 MTS-JIT</span></td></tr>
-                <tr><td class="nested">↳</td><td>2309</td><td>4:00</td><td>WILSON</td><td></td><td><span class="badge badge-restriction">🛑 53-JIT</span> <span class="badge badge-restriction">🛑 MTS-JIT</span> <span class="badge badge-restriction">🛑 59-JIT</span></td></tr>
-                <tr><td class="nested">↳</td><td>2078</td><td>4:00</td><td>FLORA</td><td></td><td><span class="badge badge-restriction">🛑 MTS-JIT</span></td></tr>
-                <tr><td class="nested">↳</td><td>2085</td><td>4:00</td><td>GREEN</td><td></td><td><span class="badge badge-restriction">🛑 MTS-JIT</span> <span class="badge badge-restriction">🛑 86-600</span> <span class="badge badge-restriction">🛑 59-JIT</span></td></tr>
-                <tr><td class="nested">↳</td><td>2082</td><td>4:00</td><td>MARSDEN D</td><td></td><td><span class="badge badge-restriction">🛑 53-JIT</span> <span class="badge badge-restriction">🛑 86-600</span></td></tr>
-                <tr><td class="nested">↳</td><td>2081</td><td>4:00</td><td>ACQUAH</td><td></td><td><span class="badge badge-restriction">🛑 53-JIT</span> <span class="badge badge-restriction">🛑 MTS-JIT</span> <span class="badge badge-restriction">🛑 86-600</span> <span class="badge badge-restriction">🛑 59-JIT</span></td></tr>
-                <tr><td class="nested">↳</td><td>2193</td><td>4:00</td><td>ROSS</td><td></td><td><span class="badge badge-restriction">🛑 53-JIT</span> <span class="badge badge-restriction">🛑 86-600</span> <span class="badge badge-restriction">🛑 59-JIT</span></td></tr>
-                <tr><td class="nested">↳</td><td>2189</td><td>4:00</td><td>SUTEY(A)</td><td></td><td><span class="badge badge-restriction">🛑 53-JIT</span> <span class="badge badge-restriction">🛑 86-600</span> <span class="badge badge-restriction">🛑 59-JIT</span></td></tr>
-                <tr><td class="nested">↳</td><td>SAIR</td><td>-</td><td>SUTEY(A)</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2190</td><td>5:00</td><td>KARUGA</td><td></td><td><span class="badge badge-restriction">🛑 53-JIT</span> <span class="badge badge-restriction">🛑 14-JIT</span> <span class="badge badge-restriction">🛑 MTS-JIT</span> <span class="badge badge-restriction">🛑 59-JIT</span></td></tr>
-                
-                <tr class="shuttle-header"><td><strong>AK / TOTE</strong></td><td>-</td><td>-</td><td>-</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2450</td><td>4:00</td><td>LOADER</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>905</td><td>-</td><td>-</td><td></td><td><span class="badge badge-restriction">🛑 MTS-JIT</span> <span class="badge badge-restriction">🛑 86-600</span> <span class="badge badge-restriction">🛑 59-JIT</span></td></tr>
-                <tr><td class="nested">↳</td><td>AML</td><td>6:00</td><td>MARTINEZ</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>AML</td><td>-</td><td>AML</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                
-                <tr class="shuttle-header"><td><strong>STAGE / WILL CALL</strong></td><td>-</td><td>-</td><td>-</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>RETURN OREGON</td><td>2:00</td><td>OSPANOV(A)</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>297</td><td>STAGE</td><td>TUTTLE</td><td></td><td><span class="badge badge-restriction">🛑 59-JIT</span></td></tr>
-                <tr><td class="nested">↳</td><td>2100</td><td>STAGE</td><td>STAGE</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2101</td><td>STAGE</td><td>STAGE</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2102</td><td>STAGE</td><td>STAGE</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-                <tr><td class="nested">↳</td><td>2402</td><td>STAGE</td><td>STAGE</td><td><span class="badge badge-clear">🟢 CLEAR</span></td><td></td></tr>
-            </tbody>
-        </table>
+<div class="container">
+    <h2>JIT Tracker Dashboard</h2>
+    
+    <div class="top-routes">
+        <h3>🏆 Top Routes by Desk</h3>
+        <ul>
+            <li><strong>Dry:</strong> 3330 (21:46) 🟡🚨</li>
+            <li><strong>Chill:</strong> 3051 (21:45) 🟢🚨</li>
+            <li><strong>Freezer:</strong> 3082 (21:45) 🔵🚨</li>
+        </ul>
     </div>
+
+    <div class="legend">
+        <h3>📋 Active JIT Slots Legend</h3>
+        <ul>
+            <li>🟡 <strong>Dry:</strong> 53-JIT, 27-JIT, 14-JIT</li>
+            <li>🟢 <strong>Chill:</strong> 80-JIT, MTS-JIT, 82-JIT, 86-600</li>
+            <li>🔵 <strong>Freezer:</strong> 59-JIT</li>
+        </ul>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Shuttle / Group</th>
+                <th>Route</th>
+                <th>Time</th>
+                <th>Driver</th>
+                <th>Status</th>
+                <th>Active Restrictions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="group-header"><td colspan="6">SHUTTLE: JAMES (21:00)</td></tr>
+            <tr><td>↳ Shuttle Out Of Kent</td><td>-</td><td>21:00</td><td>JAMES</td><td>🟢 CLEAR</td><td>-</td></tr>
+            
+            <tr class="group-header"><td colspan="6">SHUTTLE: LEMON (17:00)</td></tr>
+            <tr><td>↳ Shuttle Out Of Spok</td><td>-</td><td>17:00</td><td>LEMON</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ Spokane</td><td>3071</td><td>3:00</td><td>GUPTILL</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ RC Spokane</td><td>3072</td><td>4:00</td><td>KOPP</td><td>🟢 CLEAR</td><td>-</td></tr>
+            
+            <tr class="group-header"><td colspan="6">DQ DIRECT</td></tr>
+            <tr><td>↳ DQ East Side</td><td>3326</td><td>0:00</td><td>RAMOS(A)</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ TT North DQ</td><td>3321</td><td>0:00</td><td>KISKISAN</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ TT Woodinville DQ</td><td>3322</td><td>0:00</td><td>JOHANNECK</td><td>🟢 CLEAR</td><td>-</td></tr>
+            
+            <tr class="group-header"><td colspan="6">SHUTTLE: RIXIE (21:00)</td></tr>
+            <tr><td>↳ Poulsbo</td><td>3061</td><td>4:00</td><td>HENRY</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ Gig Harbor</td><td>3063</td><td>4:00</td><td>MARTINS</td><td>🟢 CLEAR</td><td>-</td></tr>
+            
+            <tr class="group-header"><td colspan="6">SHUTTLE: MARSDEN J (19:00)</td></tr>
+            <tr><td>↳ Oly Shelton</td><td>3023</td><td>3:00</td><td>HANSON</td><td>🟢 CLEAR</td><td>-</td></tr>
+            
+            <tr class="group-header"><td colspan="6">SHUTTLE: FURGERI (19:00)</td></tr>
+            <tr><td>↳ Vancouver</td><td>3050</td><td>4:00</td><td>BAKER</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ Portland</td><td>3052</td><td>4:00</td><td>FENNELLY</td><td>🛑 53-JIT</td><td>🛑 53-JIT</td></tr>
+            
+            <tr class="group-header"><td colspan="6">SHUTTLE: BUENO (22:00)</td></tr>
+            <tr><td>↳ Goldendale DQ</td><td>3041</td><td>4:00</td><td>MURO</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ Cle Elum</td><td>3042</td><td>4:00</td><td>RESTREPO</td><td>🟢 CLEAR</td><td>-</td></tr>
+            
+            <tr class="group-header"><td colspan="6">SHUTTLE: RIXIE (21:00)</td></tr>
+            <tr><td>↳ Tacoma</td><td>3081</td><td>4:00</td><td>TEED</td><td>🟢 CLEAR</td><td>-</td></tr>
+            
+            <tr class="group-header"><td colspan="6">SHUTTLE: HARLOFF (18:00)</td></tr>
+            <tr><td>↳ Bellingham</td><td>3011</td><td>3:00</td><td>MIMAKI</td><td>🟢 CLEAR</td><td>-</td></tr>
+            
+            <tr class="group-header"><td colspan="6">SHUTTLE: HESSELTINE (19:00)</td></tr>
+            <tr><td>↳ PA Sequim</td><td>3065</td><td>4:00</td><td>TWEDT</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ Sequim PT Townsend</td><td>3064</td><td>4:00</td><td>SLAGLE</td><td>🟢 CLEAR</td><td>-</td></tr>
+            
+            <tr class="group-header"><td colspan="6">TT KENT / LYNDEN</td></tr>
+            <tr><td>↳ TT Kent</td><td>3324</td><td>0:00</td><td>CASIMIRO</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ Lynden DQ</td><td>3010</td><td>0:00</td><td>LONTOC</td><td>🟢 CLEAR</td><td>-</td></tr>
+            
+            <tr class="group-header"><td colspan="6">SHUTTLE: FURGERI (22:00)</td></tr>
+            <tr><td>↳ Longview</td><td>3051 🟢🚨</td><td>6:00</td><td>VIGLINO</td><td>🛑 MTS-JIT, 🛑 86-600</td><td>🛑 MTS-JIT, 🛑 86-600</td></tr>
+            <tr><td>↳ DQ Relief</td><td>3053</td><td>6:00</td><td>HERRING</td><td>🛑 86-600</td><td>🛑 86-600</td></tr>
+            
+            <tr class="group-header"><td colspan="6">AK / PS&L</td></tr>
+            <tr><td>↳ PS&L DQ AK</td><td>3451</td><td>4:00</td><td>KARUGA</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ PS&L</td><td>900/901</td><td>4:00</td><td>KARUGA</td><td>🛑 59-JIT</td><td>🛑 59-JIT</td></tr>
+            
+            <tr class="group-header"><td colspan="6">LOCAL</td></tr>
+            <tr><td>↳ Seattle</td><td>3190</td><td>4:00</td><td>GREEN</td><td>🛑 27-JIT, 🛑 MTS-JIT</td><td>🛑 27-JIT, 🛑 MTS-JIT</td></tr>
+            <tr><td>↳ Oly Local</td><td>3024</td><td>3:00</td><td>LANE</td><td>🛑 53-JIT, 🛑 86-600</td><td>🛑 53-JIT, 🛑 86-600</td></tr>
+            <tr><td>↳ RC Seattle</td><td>3198</td><td>3:00</td><td>PHAN</td><td>🛑 53-JIT</td><td>🛑 53-JIT</td></tr>
+            <tr><td>↳ RC Lynnwood</td><td>3330 🟡🚨</td><td>3:00</td><td>FREDERICKS</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ Snoqualmie Casino</td><td>3308</td><td>4:00</td><td>TIERNEY</td><td>🛑 86-600, 🛑 59-JIT</td><td>🛑 86-600, 🛑 59-JIT</td></tr>
+            <tr><td>↳ EQC</td><td>3091</td><td>4:00</td><td>FERNANDEZ</td><td>🛑 86-600, 🛑 59-JIT</td><td>🛑 86-600, 🛑 59-JIT</td></tr>
+            <tr><td>↳ Auburn</td><td>3082 🔵🚨</td><td>4:00</td><td>MARSDEN D</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ W Seattle</td><td>3180</td><td>4:00</td><td>SUTEY(A)</td><td>🛑 MTS-JIT, 🛑 59-JIT</td><td>🛑 MTS-JIT, 🛑 59-JIT</td></tr>
+            <tr><td>↳ Puyallup</td><td>3086</td><td>4:00</td><td>WILSON</td><td>🛑 14-JIT</td><td>🛑 14-JIT</td></tr>
+            <tr><td>↳ Meta Bellevue</td><td>3310</td><td>4:00</td><td>RIVERA, J</td><td>🛑 86-600</td><td>🛑 86-600</td></tr>
+            <tr><td>↳ Enumclaw</td><td>3084</td><td>4:00</td><td>ROHRS</td><td>🛑 53-JIT, 🛑 80-JIT, 🛑 59-JIT</td><td>🛑 53-JIT, 🛑 80-JIT, 🛑 59-JIT</td></tr>
+            <tr><td>↳ Meta Seattle</td><td>3193</td><td>5:00</td><td>COLLINS</td><td>🛑 53-JIT, 🛑 59-JIT</td><td>🛑 53-JIT, 🛑 59-JIT</td></tr>
+            <tr><td>↳ Seattle</td><td>3192</td><td>5:00</td><td>FLORA</td><td>🛑 53-JIT, 🛑 86-600</td><td>🛑 53-JIT, 🛑 86-600</td></tr>
+            <tr><td>↳ SeaTac Airport</td><td>3298</td><td>4:00</td><td>ROSS</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ NR- Vashon</td><td>3104</td><td>5:00</td><td>MADRIGAL</td><td>🛑 86-600</td><td>🛑 86-600</td></tr>
+            
+            <tr class="group-header"><td colspan="6">STAGE / WILL CALL</td></tr>
+            <tr><td>↳ Rogge</td><td>297</td><td>STAGE</td><td>TUTTLE</td><td>🛑 53-JIT</td><td>🛑 53-JIT</td></tr>
+            <tr><td>↳ ST Alaska</td><td>SAMSON</td><td>6:00</td><td>TUTTLE</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ ST Alaska</td><td>SAMSON</td><td>6:00</td><td>TUTTLE</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ Will Call</td><td>3100</td><td>STAGE</td><td>-</td><td>🛑 27-JIT, 🛑 86-600, 🛑 59-JIT</td><td>🛑 27-JIT, 🛑 86-600, 🛑 59-JIT</td></tr>
+            <tr><td>↳ Vendor Willcall</td><td>3101</td><td>STAGE</td><td>-</td><td>🟢 CLEAR</td><td>-</td></tr>
+            
+            <tr class="group-header"><td colspan="6">DOCK / ROUTE SUPPORT</td></tr>
+            <tr><td>↳ Docksuport</td><td>-</td><td>5:00</td><td>TUTTLE</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ Dock/Route Support</td><td>-</td><td>5:00</td><td>EASON</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ Dock/Route Support</td><td>-</td><td>6:00</td><td>ACQUAH</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ Load/Lead</td><td>-</td><td>18:30</td><td>EDLIN</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ Load/Hostle/BH/Assi</td><td>-</td><td>19:00</td><td>ISHISE</td><td>🟢 CLEAR</td><td>-</td></tr>
+            <tr><td>↳ Load/Hostle/BH/Assi</td><td>-</td><td>19:00</td><td>FOUNTAIN</td><td>🟢 CLEAR</td><td>-</td></tr>
+        </tbody>
+    </table>
+</div>
+
 </body>
 </html>
