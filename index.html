@@ -10,7 +10,6 @@
             --text-color: #e0e0e0;
             --border-color: #333;
             --table-header-bg: #1f1f1f;
-            --row-alt-bg: #1a1a1a;
             --dry-color: #ffca28;
             --chill-color: #66bb6a;
             --freezer-color: #42a5f5;
@@ -23,7 +22,7 @@
             padding: 20px;
             line-height: 1.6;
         }
-        h1, h2, h3 { color: #fff; }
+        h3 { color: #fff; }
         .dashboard-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -38,6 +37,7 @@
         .header-section ul {
             list-style-type: none;
             padding-left: 0;
+            margin: 5px 0;
         }
         .header-section li { margin-bottom: 8px; }
         table {
@@ -74,9 +74,9 @@
         <div class="header-section">
             <h3>🏆 Top Routes by Desk</h3>
             <ul>
-                <li><strong class="desk-dry">🟡 Dry Desk</strong>: Top Route: 5065 | Orders Left: TBD | <em>Last Updated: 8:23 PM</em></li>
-                <li><strong class="desk-chill">🟢 Chill Desk</strong>: Top Route: 5030 | Orders Left: TBD | <em>Last Updated: 8:23 PM</em></li>
-                <li><strong class="desk-freezer">🔵 Freezer Desk</strong>: Top Route: 5065 | Orders Left: TBD | <em>Last Updated: 8:23 PM</em></li>
+                <li><strong class="desk-dry">🟡 Dry Desk</strong>: Top Route: 5312 🟡🚨 | Orders Left: TBD | <em>Last Updated: 8:23 PM</em></li>
+                <li><strong class="desk-chill">🟢 Chill Desk</strong>: Top Route: 5193 🟢🚨 | Orders Left: TBD | <em>Last Updated: 8:23 PM</em></li>
+                <li><strong class="desk-freezer">🔵 Freezer Desk</strong>: Top Route: 5051 🔵🚨 | Orders Left: TBD | <em>Last Updated: 8:23 PM</em></li>
             </ul>
         </div>
 
@@ -148,40 +148,40 @@
                 <tr class="group-row"><td>LOCAL: MIDNIGHT</td><td></td><td></td><td></td><td></td><td></td></tr>
                 <tr><td>↳</td><td>5326</td><td>0:00</td><td>NAVA-LOPEZ</td><td class="status-clear">🟢 CLEAR</td><td></td></tr>
                 <tr><td>↳</td><td>5327</td><td>0:00</td><td>CASIMIRO</td><td class="status-clear">🟢 CLEAR</td><td></td></tr>
-                <tr><td>↳</td><td>5328</td><td>0:00</td><td>MILLARES</td><td></td><td class="restrictions">🛑 59-JIT, 🛑 53-JIT</td></tr>
+                <tr><td>↳</td><td>5328</td><td>0:00</td><td>MILLARES</td><td class="status-clear">🟢 CLEAR</td><td></td></tr>
                 <tr><td>↳</td><td>5381</td><td>0:00</td><td>KUANG(A)</td><td class="status-clear">🟢 CLEAR</td><td></td></tr>
                 <tr><td>↳</td><td>5323</td><td>0:00</td><td>MCGRAW</td><td class="status-clear">🟢 CLEAR</td><td></td></tr>
 
                 <tr class="group-row"><td>SHUTTLE: AGUAYO D(A) [2]</td><td></td><td>TBA</td><td>AGUAYO D(A)</td><td></td><td></td></tr>
-                <tr><td>↳</td><td>5064</td><td>4:00</td><td>MARTINS</td><td></td><td class="restrictions">🛑 86-600, 🛑 53-JIT</td></tr>
-                <tr><td>↳</td><td>5065 🟡🚨🔵🚨</td><td>4:00</td><td>HENRY</td><td></td><td class="restrictions">🛑 MTS-JIT</td></tr>
+                <tr><td>↳</td><td>5064</td><td>4:00</td><td>MARTINS</td><td></td><td class="restrictions">🛑 53-JIT</td></tr>
+                <tr><td>↳</td><td>5065</td><td>4:00</td><td>HENRY</td><td class="status-clear">🟢 CLEAR</td><td></td></tr>
 
                 <tr class="group-row"><td>SHUTTLE: HARLOFF</td><td></td><td>18:00</td><td>HARLOFF</td><td></td><td></td></tr>
                 <tr><td>↳</td><td>5010</td><td>3:00</td><td>PANIAGUA</td><td></td><td class="restrictions">🛑 MTS-JIT, 🛑 86-600, 🛑 59-JIT, 🛑 53-JIT</td></tr>
-                <tr><td>↳</td><td>5011</td><td>3:00</td><td>MIMAKI</td><td></td><td class="restrictions">🛑 86-600</td></tr>
+                <tr><td>↳</td><td>5011</td><td>3:00</td><td>MIMAKI</td><td class="status-clear">🟢 CLEAR</td><td></td></tr>
 
                 <tr class="group-row"><td>SHUTTLE: MARSDEN J [2]</td><td></td><td>TBA</td><td>MARSDEN J</td><td></td><td></td></tr>
-                <tr><td>↳</td><td>5030 🟢🚨</td><td>4:00</td><td>COMEAU</td><td></td><td class="restrictions">🛑 27-JIT, 🛑 86-600, 🛑 59-JIT, 🛑 53-JIT</td></tr>
+                <tr><td>↳</td><td>5030</td><td>4:00</td><td>COMEAU</td><td></td><td class="restrictions">🛑 86-600, 🛑 59-JIT, 🛑 53-JIT</td></tr>
 
                 <tr class="group-row"><td>SHUTTLE: FURGERI [2]</td><td></td><td>22:00</td><td>FURGERI</td><td></td><td></td></tr>
-                <tr><td>↳</td><td>5051</td><td>6:00</td><td>HADLOCK</td><td></td><td class="restrictions">🛑 MTS-JIT, 🛑 86-600, 🛑 59-JIT, 🛑 53-JIT</td></tr>
+                <tr><td>↳</td><td>5051 🔵🚨</td><td>6:00</td><td>HADLOCK</td><td></td><td class="restrictions">🛑 MTS-JIT, 🛑 86-600, 🛑 59-JIT</td></tr>
                 <tr><td>↳</td><td>5050</td><td>6:00</td><td>HERRING</td><td></td><td class="restrictions">🛑 86-600, 🛑 53-JIT</td></tr>
 
                 <tr class="group-row"><td>LOCAL: AM ROUTES</td><td></td><td></td><td></td><td></td><td></td></tr>
-                <tr><td>↳</td><td>5312</td><td>2:00</td><td>KISKISAN</td><td class="status-clear">🟢 CLEAR</td><td></td></tr>
+                <tr><td>↳</td><td>5312 🟡🚨</td><td>2:00</td><td>KISKISAN</td><td class="status-clear">🟢 CLEAR</td><td></td></tr>
                 <tr><td>↳</td><td>5190</td><td>2:00</td><td>MACKLEIT</td><td></td><td class="restrictions">🛑 MTS-JIT, 🛑 53-JIT</td></tr>
-                <tr><td>↳</td><td>5311</td><td>2:00</td><td>ROSE</td><td></td><td class="restrictions">🛑 59-JIT, 🛑 53-JIT, 🛑 86-600</td></tr>
+                <tr><td>↳</td><td>5311</td><td>2:00</td><td>ROSE</td><td></td><td class="restrictions">🛑 53-JIT, 🛑 86-600</td></tr>
                 <tr><td>↳</td><td>5084</td><td>4:00</td><td>LANE</td><td></td><td class="restrictions">🛑 MTS-JIT, 🛑 59-JIT</td></tr>
-                <tr><td>↳</td><td>5027</td><td>3:00</td><td>RIVERA, J</td><td></td><td class="restrictions">🛑 MTS-JIT, 🛑 82-JIT, 🛑 86-600, 🛑 59-JIT, 🛑 53-JIT</td></tr>
+                <tr><td>↳</td><td>5027</td><td>3:00</td><td>RIVERA, J</td><td></td><td class="restrictions">🛑 MTS-JIT, 🛑 86-600, 🛑 59-JIT, 🛑 53-JIT</td></tr>
                 <tr><td>↳</td><td>5198</td><td>3:00</td><td>PHAN</td><td class="status-clear">🟢 CLEAR</td><td></td></tr>
                 <tr><td>↳</td><td>5313</td><td>3:00</td><td>DORRIS</td><td></td><td class="restrictions">🛑 MTS-JIT, 🛑 82-JIT, 🛑 86-600, 🛑 59-JIT</td></tr>
                 <tr><td>↳</td><td>5330</td><td>3:00</td><td>FREDERICKS</td><td></td><td class="restrictions">🛑 59-JIT</td></tr>
                 <tr><td>↳</td><td>5308</td><td>4:00</td><td>TIERNEY</td><td></td><td class="restrictions">🛑 59-JIT, 🛑 53-JIT</td></tr>
                 <tr><td>↳</td><td>5091</td><td>4:00</td><td>FERNANDEZ</td><td></td><td class="restrictions">🛑 MTS-JIT, 🛑 86-600, 🛑 59-JIT, 🛑 53-JIT</td></tr>
-                <tr><td>↳</td><td>5193</td><td>4:00</td><td>RAMOS(A)</td><td></td><td class="restrictions">🛑 MTS-JIT, 🛑 53-JIT</td></tr>
-                <tr><td>↳</td><td>5315</td><td>4:00</td><td>WILSON</td><td></td><td class="restrictions">🛑 MTS-JIT, 🛑 82-JIT, 🛑 86-600</td></tr>
+                <tr><td>↳</td><td>5193 🟢🚨</td><td>4:00</td><td>RAMOS(A)</td><td></td><td class="restrictions">🛑 MTS-JIT, 🛑 53-JIT</td></tr>
+                <tr><td>↳</td><td>5315</td><td>4:00</td><td>WILSON</td><td></td><td class="restrictions">🛑 MTS-JIT, 🛑 82-JIT, 🛑 86-600, 🛑 59-JIT</td></tr>
                 <tr><td>↳</td><td>5191</td><td>4:00</td><td>SUTEY(A)</td><td></td><td class="restrictions">🛑 53-JIT</td></tr>
-                <tr><td>↳</td><td>5082</td><td>4:00</td><td>ROHRS</td><td class="status-clear">🟢 CLEAR</td><td></td></tr>
+                <tr><td>↳</td><td>5082</td><td>4:00</td><td>ROHRS</td><td></td><td class="restrictions">🛑 MTS-JIT</td></tr>
                 <tr><td>↳</td><td>5151</td><td>4:00</td><td>MARSDEN D</td><td></td><td class="restrictions">🛑 86-600</td></tr>
                 <tr><td>↳</td><td>5080</td><td>4:00</td><td>KARUGA</td><td></td><td class="restrictions">🛑 86-600</td></tr>
                 <tr><td>↳</td><td>5300</td><td>4:00</td><td>UNASSIGNED</td><td></td><td class="restrictions">🛑 MTS-JIT, 🛑 86-600, 🛑 53-JIT</td></tr>
